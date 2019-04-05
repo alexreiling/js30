@@ -7,6 +7,61 @@
     <script src="scripts/script.js"></script>
   </head>
   <body>
-    <div id="h-world">Hello World</div>  
+    <h2>Update CSS Variables with <span class="highlight-text">JS</span></h2>
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input type="range" name="spacing" id="spacing" data-suffix="px">
+      <label for="blur">Blur:</label>
+      <input type="range" name="blur" id="blur" data-suffix="px">
+      <label for="base-color">Base Color:</label>
+      <input type="color" name="base" id="base-color">
+    </div>
+    <div class="image-container">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1024px-React-icon.svg.png" alt="react logo">
+    </div>
+    <style>
+      :root{
+        --base: #ffc600;
+        --spacing: 10px;
+        --blur:10px;
+      }
+      h2{
+        font-size: 3em;
+      }
+      body {
+        background-color:#193448;
+        color: white;
+        font-family: "Helvetica Neue", Helvetica, sans-serif;
+      }
+      label{
+        font-weight: 300;
+        font-size: 2em;
+      }
+      .image-container{
+        width: 50%;
+        background: var(--base);
+        padding:var(--spacing);
+      }
+      .image-container > img {
+        width: 100%;
+        background: #193448;
+        filter:blur(var(--blur))
+      }
+      .highlight-text{
+        color: var(--base);
+      }
+    </style>
+    <script>
+      let inputs = document.querySelectorAll(".controls input")
+      const handleInput = (e) => {
+        const el = e.currentTarget
+        const suffix = el.dataset.suffix || ""
+        document.documentElement.style.setProperty(`--${el.name}`,el.value+suffix)
+      }
+      inputs.forEach(input => {
+        input.addEventListener("mousemove",handleInput.bind(input))
+        input.addEventListener("change",handleInput.bind(input))
+      })
+    </script>
   </body>
 </html>
